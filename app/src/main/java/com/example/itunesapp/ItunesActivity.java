@@ -22,18 +22,40 @@ public class ItunesActivity extends AppCompatActivity {
         if (InternetUtil.hayInternet(this)) {
 
             QueryItunes queryItunes = new QueryItunes(this);
-            queryItunes.execute("enrique iglesias");
+            queryItunes.execute("enrique");
         } else
         {
             Toast aviso = Toast.makeText(this, "NO HAY INTERNET", Toast.LENGTH_SHORT);
             aviso.show();
+            ocultarBarra();
         }
     }
 
-    public void actualizarLista (ResultadoCanciones rc)
+    private void ocultarBarra ()
     {
         Log.d("MIAPP", "Ocultando");
         ProgressBar pb = findViewById(R.id.barra_progreso);
         pb.setVisibility(View.GONE);
+    }
+
+    public void actualizarLista (ResultadoCanciones rc)
+    {
+
+        ocultarBarra();
+        /**
+         * TODO
+         *
+         * 1) AÑADIR UNA CAJA DE TEXTO Y UN BOTÓN PARA LAS BÚSQUEDAS
+         * 2) Llamar A LA CLASE QueryItunes CON EL TÉRMINO DE BÚSQUEDA INTRODUCIDO POR EL USUARIO
+         * 3) MOSTRAR LA LISTA DE CANCIONES EN UN RECYCLER VIEW (tener en cuenta los casos de que la respuesta sea vacía o errónea)
+
+         TAREAS OPCIONALES:
+
+         1) TERMINAR EL ENUNCIADO DE ESTA MAÑANA DE LA NOTIFICACIÓN EN PAPARAIZZIAPP
+         2) ADIVINA NUMERO APP
+         3) OJEAR DOWNLOADMANAGER https://developer.android.com/reference/android/app/DownloadManager
+         */
+
+
     }
 }

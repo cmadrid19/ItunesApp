@@ -48,7 +48,7 @@ public class QueryItunes extends AsyncTask<String, Void, ResultadoCanciones> {
     }
 
 
-    @Override
+    @Override//VAR ARGS
     protected ResultadoCanciones doInBackground(String... canciones) {
         ResultadoCanciones rc = null;
 
@@ -87,17 +87,19 @@ public class QueryItunes extends AsyncTask<String, Void, ResultadoCanciones> {
     }
 
     @Override
-    protected void onPostExecute(ResultadoCanciones s) {
+    protected void onPostExecute(ResultadoCanciones resultadoCanciones) {
 
-        super.onPostExecute(s);
+        super.onPostExecute(resultadoCanciones);
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(s);
-        System.out.println(json);
-        Log.d("MIAPP", "JSON CANCIONES = " + json);
+        if (resultadoCanciones!=null) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(resultadoCanciones);
+            System.out.println(json);
+            Log.d("MIAPP", "JSON CANCIONES = " + json);
+        }
 
         ItunesActivity ia = (ItunesActivity)this.context;
-        ia.actualizarLista(s);
+        ia.actualizarLista(resultadoCanciones);
 
 
 
