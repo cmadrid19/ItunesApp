@@ -3,16 +3,17 @@ package com.example.itunesapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.itunesapp.dto.Cancion;
-
 import java.util.ArrayList;
 
 public class AdapterCancion extends RecyclerView.Adapter<CancionViewHolder> {
-
         private ArrayList<Cancion> datos;
+
+        public AdapterCancion (ArrayList<Cancion> canciones) {
+            this.datos = canciones;
+        }
+
 
         //Creo la vista, con el Holder dentro
         @Override
@@ -40,8 +41,6 @@ public class AdapterCancion extends RecyclerView.Adapter<CancionViewHolder> {
             return datos.size();
         }
 
-        public AdapterCanciones (ArrayList<Cancion> canciones) {
-            this.datos = canciones;
-        }
+
     }
 

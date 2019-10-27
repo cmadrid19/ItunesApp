@@ -1,7 +1,9 @@
 package com.example.itunesapp.dto;
 
 
-public class Cancion {
+import java.io.Serializable;
+
+public class Cancion implements Serializable {
 
     private String artistName;
     private int trackId;

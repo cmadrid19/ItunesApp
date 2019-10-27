@@ -17,7 +17,6 @@ import java.net.URLEncoder;
 
 public class QueryItunes extends AsyncTask<String, Void, ResultadoCanciones> {
 
-
     private Context context;
     private final static String URI_ITUNES = "https://itunes.apple.com/search/?media=music&term=";
     //&attribute=artistTerm albumTerm songTerm
@@ -27,13 +26,11 @@ public class QueryItunes extends AsyncTask<String, Void, ResultadoCanciones> {
         this.context = c;
     }
 
-    private  URL preperarURL (String busqueda)
-    {
+    private URL preperarURL (String busqueda){
         URL url = null;
         String queryString = null;
 
-        try
-            {
+        try{
             queryString = URLEncoder.encode(busqueda, "UTF-8");
             url = new URL(URI_ITUNES+queryString);
             Log.d("MIAPP", "url = "+url);
@@ -42,8 +39,6 @@ public class QueryItunes extends AsyncTask<String, Void, ResultadoCanciones> {
             {
                 Log.e("MIAPP", "Problemas al componer la URL", e);
             }
-
-
         return  url;
     }
 
@@ -72,23 +67,19 @@ public class QueryItunes extends AsyncTask<String, Void, ResultadoCanciones> {
 
         } catch (Exception e) {
             Log.e("MIAPP", "Errro al com itunes", e);
-        } finally
-        {
-            try
-            {
+        } finally {
+            try {
                 is.close();
             } catch (IOException e) {
                 Log.e("MIAPP", "Error al liberar recursos", e);
             }
             httpURLConnection.disconnect();
         }
-
         return rc;
     }
 
     @Override
     protected void onPostExecute(ResultadoCanciones resultadoCanciones) {
-
         super.onPostExecute(resultadoCanciones);
 
         if (resultadoCanciones!=null) {
@@ -97,11 +88,7 @@ public class QueryItunes extends AsyncTask<String, Void, ResultadoCanciones> {
             System.out.println(json);
             Log.d("MIAPP", "JSON CANCIONES = " + json);
         }
-
         ItunesActivity ia = (ItunesActivity)this.context;
         ia.actualizarLista(resultadoCanciones);
-
-
-
     }
 }

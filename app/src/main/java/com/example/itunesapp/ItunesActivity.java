@@ -2,6 +2,8 @@ package com.example.itunesapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,32 +11,31 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.itunesapp.dto.Cancion;
 import com.example.itunesapp.dto.ResultadoCanciones;
 import com.example.itunesapp.remote.QueryItunes;
 import com.example.itunesapp.util.InternetUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
 
 public class ItunesActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
     }
 
-    private void ocultarBarra ()
-    {
+    private void ocultarBarra () {
         Log.d("MIAPP", "Ocultando");
         ProgressBar pb = findViewById(R.id.barra_progreso);
         pb.setVisibility(View.GONE);
     }
 
-    public void actualizarLista (ResultadoCanciones rc)
-    {
-
+    public void actualizarLista (ResultadoCanciones rc) {
         ocultarBarra();
         /**
          * TODO
@@ -59,6 +60,9 @@ public class ItunesActivity extends AppCompatActivity {
             if (InternetUtil.hayInternet(this)) {
                 QueryItunes queryItunes = new QueryItunes(this);
                 queryItunes.execute(editText.getText().toString());
+
+                Intent intent = new Intent(this, RecyclerActivity.class);
+                startActivity(intent);
             } else
             {
                 Toast aviso = Toast.makeText(this, "NO HAY INTERNET", Toast.LENGTH_SHORT);
