@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -14,21 +15,14 @@ import com.example.itunesapp.util.InternetUtil;
 
 public class ItunesActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (InternetUtil.hayInternet(this)) {
 
-            QueryItunes queryItunes = new QueryItunes(this);
-            queryItunes.execute("enrique");
-        } else
-        {
-            Toast aviso = Toast.makeText(this, "NO HAY INTERNET", Toast.LENGTH_SHORT);
-            aviso.show();
-            ocultarBarra();
-        }
     }
 
     private void ocultarBarra ()
@@ -57,5 +51,20 @@ public class ItunesActivity extends AppCompatActivity {
          */
 
 
+    }
+
+    public void buscarCanciones(View view) {
+        EditText editText = findViewById(R.id.editText);
+        if (!editText.getText().toString().isEmpty()){
+            if (InternetUtil.hayInternet(this)) {
+                QueryItunes queryItunes = new QueryItunes(this);
+                queryItunes.execute(editText.getText().toString());
+            } else
+            {
+                Toast aviso = Toast.makeText(this, "NO HAY INTERNET", Toast.LENGTH_SHORT);
+                aviso.show();
+                ocultarBarra();
+            }
+        }
     }
 }
